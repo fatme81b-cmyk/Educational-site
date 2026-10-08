@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#081627">
+<meta name="description" content="Browse the Horizon Properties collection — search luxury homes, estates and penthouses by location, type, price, bedrooms and floor area.">
+<title>Property Collection — Horizon Properties</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/properties.css">
+</head>
+<body data-page="properties">
+<a class="skip-link" href="#main">Skip to main content</a>
+<div data-header-mount></div>
+
+<main id="main">
+  <section class="page-hero">
+    <div class="page-hero__media">
+      <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=2000&q=75"
+           alt="Modern house with a pool lit at dusk" fetchpriority="high" decoding="async">
+    </div>
+    <div class="page-hero__overlay"></div>
+    <div class="container page-hero__inner">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span data-icon="chevronRight" data-icon-size="13"></span>
+        <span aria-current="page">Properties</span>
+      </nav>
+      <h1>The Property Collection</h1>
+      <p>Ten architecturally significant homes across the United States — filter by location, type, price, bedrooms and floor area to find the right one.</p>
+    </div>
+  </section>
+
+  <div class="container">
+    <form class="filters" data-filters role="search" aria-label="Filter properties"></form>
+  </div>
+
+  <section class="section section--tight" aria-labelledby="results-title">
+    <div class="container">
+      <div class="results__head">
+        <h2 class="h3" id="results-title" aria-live="polite" data-result-count></h2>
+        <p class="filters__count">Sorted to suit you · <a class="link-arrow" href="index.html#featured" style="border:0">Back to featured <span class="arrow" data-icon="arrowRight" data-icon-size="15"></span></a></p>
+      </div>
+      <div class="property-grid" data-results></div>
+    </div>
+  </section>
+</main>
+
+<div data-footer></div>
+<script type="module" src="js/properties.js"></script>
+</body>
+</html>

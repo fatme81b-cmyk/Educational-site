@@ -1,0 +1,346 @@
+/* ==========================================================================
+   Property data
+   Structured records so the same shape can later be served from an API or a
+   database table without touching the presentation layer.
+   ========================================================================== */
+
+const photo = (id, w = 1600) =>
+  `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=75`;
+
+/* Ask the image CDN for a different width than the stored default, so grids
+   only download what they display. */
+export const atWidth = (url, width) => url.replace(/([?&]w=)\d+/, `$1${width}`);
+
+export const AGENTS = [
+  {
+    id: 'daniel-morgan',
+    name: 'Daniel Morgan',
+    role: 'Managing Director',
+    phone: '(555) 246-7890',
+    email: 'daniel@horizonproperties.com',
+    photo: photo('1560250097-0b93528c311a', 400),
+  },
+  {
+    id: 'olivia-carter',
+    name: 'Olivia Carter',
+    role: 'Luxury Property Advisor',
+    phone: '(555) 246-7891',
+    email: 'olivia@horizonproperties.com',
+    photo: photo('1573497019940-1c28c88b4f3e', 400),
+  },
+  {
+    id: 'james-wilson',
+    name: 'James Wilson',
+    role: 'Investment Consultant',
+    phone: '(555) 246-7892',
+    email: 'james@horizonproperties.com',
+    photo: photo('1472099645785-5658abf4ff4e', 400),
+  },
+  {
+    id: 'sophia-bennett',
+    name: 'Sophia Bennett',
+    role: 'Senior Property Specialist',
+    phone: '(555) 246-7893',
+    email: 'sophia@horizonproperties.com',
+    photo: photo('1580489944761-15a19d654956', 400),
+  },
+];
+
+export const PROPERTIES = [
+  {
+    id: 'lakeside-modern-villa',
+    title: 'Lakeside Modern Villa',
+    city: 'Austin',
+    state: 'Texas',
+    country: 'USA',
+    price: 2350000,
+    priceLabel: '$2.35 Million',
+    type: 'Villa',
+    status: 'For Sale',
+    beds: 5,
+    baths: 4,
+    sqft: 4620,
+    year: 2022,
+    featured: true,
+    agentId: 'daniel-morgan',
+    images: [
+      photo('1600596542815-ffad4c1539a9'),
+      photo('1600585154340-be6161a56a0c'),
+      photo('1600607687939-ce8a6c25118c'),
+      photo('1600566753086-00f18fb6b3ea'),
+      photo('1583608205776-bfd35f0d9f83'),
+    ],
+    description:
+      'Set on a quiet stretch of Lake Austin, this villa pairs an elemental concrete frame with floor-to-ceiling glazing that folds away entirely, opening the living space onto a cantilevered deck and infinity pool. Interiors are calm and textural — white oak, honed limestone and bespoke joinery — arranged around a double-height central hall that carries daylight deep into the plan.',
+    features: ['Infinity pool', 'Private boat dock', 'Floor-to-ceiling glazing', 'Chef’s kitchen', 'Home cinema', 'Four-car garage'],
+    amenities: ['Smart home automation', 'Wine cellar', 'Outdoor kitchen & terrace', 'Guest house', 'Electric car charging', 'Gated entry', 'Lakefront access', 'Radiant heated floors'],
+  },
+  {
+    id: 'pacific-glass-house',
+    title: 'Pacific Glass House',
+    city: 'Malibu',
+    state: 'California',
+    country: 'USA',
+    price: 4800000,
+    priceLabel: '$4.8 Million',
+    type: 'House',
+    status: 'For Sale',
+    beds: 6,
+    baths: 5,
+    sqft: 5840,
+    year: 2021,
+    featured: true,
+    agentId: 'olivia-carter',
+    images: [
+      photo('1613490493576-7fde63acd811'),
+      photo('1512917774080-9991f1c4c750'),
+      photo('1600210492486-724fe5c67fb0'),
+      photo('1600573472550-8090b5e0745e'),
+      photo('1602343168117-bb8ffe3e2e9f'),
+    ],
+    description:
+      'A glass pavilion above the Pacific, conceived to disappear into its setting. Sliding walls dissolve the boundary between the great room and the terrace, where an edge-set pool appears to spill toward the horizon. The upper level holds a principal suite with a private deck, spa bathroom and uninterrupted ocean views.',
+    features: ['Ocean-facing terrace', 'Infinity edge pool', 'Principal suite with deck', 'Media lounge', 'Gym & sauna', 'Gated motor court'],
+    amenities: ['Panoramic ocean views', 'Wine room', 'Outdoor shower', 'Fire pit lounge', 'Solar array', 'Guest apartment', 'Beach access path', 'Somfy shading system'],
+  },
+  {
+    id: 'desert-horizon-estate',
+    title: 'Desert Horizon Estate',
+    city: 'Scottsdale',
+    state: 'Arizona',
+    country: 'USA',
+    price: 3150000,
+    priceLabel: '$3.15 Million',
+    type: 'Estate',
+    status: 'New',
+    beds: 5,
+    baths: 5,
+    sqft: 5210,
+    year: 2023,
+    featured: true,
+    agentId: 'james-wilson',
+    images: [
+      photo('1600047509807-ba8f99d2cdde'),
+      photo('1605276374104-dee2a0ed3cd6'),
+      photo('1600607687920-4e2a09cf159d'),
+      photo('1564013799919-ab600027ffc6'),
+      photo('1570129477492-45c003edd2be'),
+    ],
+    description:
+      'Low-slung and precisely detailed, this desert estate frames the McDowell ridgeline from every principal room. Rammed-earth walls, deep cantilevered eaves and a shaded courtyard keep the house cool and quiet, while a lap pool runs the length of the southern terrace toward the sunset.',
+    features: ['Courtyard plan', '75ft lap pool', 'Mountain views', 'Casita & studio', 'Shaded dining terrace', 'Motor court'],
+    amenities: ['Desert landscaping', 'Outdoor fireplace', 'Wine wall', 'Home office suite', 'Guest casita', 'Automated shading', 'Security system', 'Three-car garage'],
+  },
+  {
+    id: 'oceanfront-residence',
+    title: 'Oceanfront Residence',
+    city: 'Miami',
+    state: 'Florida',
+    country: 'USA',
+    price: 5200000,
+    priceLabel: '$5.2 Million',
+    type: 'Residence',
+    status: 'For Sale',
+    beds: 4,
+    baths: 5,
+    sqft: 4900,
+    year: 2020,
+    featured: true,
+    agentId: 'olivia-carter',
+    images: [
+      photo('1583608205776-bfd35f0d9f83'),
+      photo('1602343168117-bb8ffe3e2e9f'),
+      photo('1512917774080-9991f1c4c750'),
+      photo('1600210492486-724fe5c67fb0'),
+      photo('1600596542815-ffad4c1539a9'),
+    ],
+    description:
+      'Direct oceanfront living with 90 feet of private beach frontage. The residence opens through a wall of glass to a palm-lined pool terrace, and the principal suite occupies the entire upper floor with a wraparound balcony over the water.',
+    features: ['90ft beach frontage', 'Pool terrace', 'Wraparound balcony', 'Summer kitchen', 'Elevator', 'Hurricane-rated glazing'],
+    amenities: ['Private beach access', 'Boat mooring', 'Outdoor spa', 'Fitness room', 'Staff quarters', 'Full-house generator', 'Smart lighting', 'Two-car garage'],
+  },
+  {
+    id: 'modern-hillside-retreat',
+    title: 'Modern Hillside Retreat',
+    city: 'Los Angeles',
+    state: 'California',
+    country: 'USA',
+    price: 3750000,
+    priceLabel: '$3.75 Million',
+    type: 'Retreat',
+    status: 'For Sale',
+    beds: 4,
+    baths: 4,
+    sqft: 3980,
+    year: 2019,
+    featured: false,
+    agentId: 'sophia-bennett',
+    images: [
+      photo('1568605114967-8130f3a36994'),
+      photo('1600585154340-be6161a56a0c'),
+      photo('1600607687939-ce8a6c25118c'),
+      photo('1600566753086-00f18fb6b3ea'),
+      photo('1605276374104-dee2a0ed3cd6'),
+    ],
+    description:
+      'Terraced into a canyon ridge, the house steps down the hillside in three volumes, each opening to its own garden terrace. Sunset views across the basin are framed by steel portals and mature olive trees, and the pool deck sits level with the main living floor.',
+    features: ['Three-tiered terraces', 'Canyon & city views', 'Pool with sun shelf', 'Olive grove garden', 'Studio', 'Gated driveway'],
+    amenities: ['Outdoor lounge', 'Fireplace', 'Wine fridge', 'Media room', 'Guest suite', 'Solar panels', 'Mature landscaping', 'Two-car garage'],
+  },
+  {
+    id: 'palm-garden-residence',
+    title: 'Palm Garden Residence',
+    city: 'Beverly Hills',
+    state: 'California',
+    country: 'USA',
+    price: 6400000,
+    priceLabel: '$6.4 Million',
+    type: 'Estate',
+    status: 'For Sale',
+    beds: 7,
+    baths: 7,
+    sqft: 7420,
+    year: 2018,
+    featured: false,
+    agentId: 'daniel-morgan',
+    images: [
+      photo('1580587771525-78b9dba3b914'),
+      photo('1523217582562-09d0def993a6'),
+      photo('1600573472550-8090b5e0745e'),
+      photo('1600607687920-4e2a09cf159d'),
+      photo('1600047509807-ba8f99d2cdde'),
+    ],
+    description:
+      'A classic Beverly Hills estate reimagined for contemporary life: formal gardens with mature palms, a north-south tennis court and a guest pavilion, behind private hedged gates. The principal wing is arranged as a serene sequence of dressing room, spa bath and garden terrace.',
+    features: ['Tennis court', 'Guest pavilion', 'Formal gardens', 'Spa bathroom', 'Wine cellar', 'Six-car garage'],
+    amenities: ['Pool & spa', 'Outdoor dining pavilion', 'Library', 'Home gym', 'Staff apartment', 'Elevator', 'Gatehouse', 'Automated irrigation'],
+  },
+  {
+    id: 'contemporary-lake-house',
+    title: 'Contemporary Lake House',
+    city: 'Lake Tahoe',
+    state: 'Nevada',
+    country: 'USA',
+    price: 2950000,
+    priceLabel: '$2.95 Million',
+    type: 'House',
+    status: 'For Sale',
+    beds: 4,
+    baths: 3,
+    sqft: 3460,
+    year: 2021,
+    featured: false,
+    agentId: 'james-wilson',
+    images: [
+      photo('1570129477492-45c003edd2be'),
+      photo('1564013799919-ab600027ffc6'),
+      photo('1600596542815-ffad4c1539a9'),
+      photo('1600210492486-724fe5c67fb0'),
+      photo('1613490493576-7fde63acd811'),
+    ],
+    description:
+      'A timber-and-glass lake house for all four seasons. Deep eaves shelter a wraparound deck above the water, and a stone hearth anchors the double-height living room. The boat dock is reached by a private path through the pines.',
+    features: ['Private boat dock', 'Wraparound deck', 'Double-height living room', 'Ski room', 'Radiant floors', 'Stone fireplace'],
+    amenities: ['Lakefront access', 'Hot tub', 'Outdoor fire pit', 'Boot & ski storage', 'Built-in bunk room', 'Generator', 'Heated driveway', 'Two-car garage'],
+  },
+  {
+    id: 'architectural-downtown-penthouse',
+    title: 'Architectural Downtown Penthouse',
+    city: 'Austin',
+    state: 'Texas',
+    country: 'USA',
+    price: 1850000,
+    priceLabel: '$1.85 Million',
+    type: 'Penthouse',
+    status: 'New',
+    beds: 3,
+    baths: 3,
+    sqft: 2740,
+    year: 2023,
+    featured: false,
+    agentId: 'sophia-bennett',
+    images: [
+      photo('1600607687920-4e2a09cf159d'),
+      photo('1600566753086-00f18fb6b3ea'),
+      photo('1512917774080-9991f1c4c750'),
+      photo('1600607687939-ce8a6c25118c'),
+      photo('1580587771525-78b9dba3b914'),
+    ],
+    description:
+      'The uppermost residence of a boutique eight-storey building, with a 900 square foot terrace looking south over the skyline. Interiors are pared back — micro-cement floors, bronze detailing and a monolithic kitchen island — leaving the city as the main event.',
+    features: ['900 sq ft terrace', 'Skyline views', 'Private lift access', 'Monolithic kitchen', 'Concierge', 'Two parking bays'],
+    amenities: ['Rooftop pool', 'Residents’ lounge', 'Fitness studio', 'Climate-controlled storage', 'Pet friendly', 'EV charging', 'Smart climate control', '24h security'],
+  },
+  {
+    id: 'skyline-terrace-duplex',
+    title: 'Skyline Terrace Duplex',
+    city: 'Seattle',
+    state: 'Washington',
+    country: 'USA',
+    price: 2100000,
+    priceLabel: '$2.1 Million',
+    type: 'Penthouse',
+    status: 'For Sale',
+    beds: 4,
+    baths: 4,
+    sqft: 3180,
+    year: 2019,
+    featured: false,
+    agentId: 'olivia-carter',
+    images: [
+      photo('1523217582562-09d0def993a6'),
+      photo('1600573472550-8090b5e0745e'),
+      photo('1600585154340-be6161a56a0c'),
+      photo('1602343168117-bb8ffe3e2e9f'),
+      photo('1600047509807-ba8f99d2cdde'),
+    ],
+    description:
+      'Two floors of light-filled volume above the waterfront, connected by a sculptural stair under a skylight. The upper level is given over to a principal suite and a planted roof terrace with views across Puget Sound.',
+    features: ['Two-storey volumes', 'Planted roof terrace', 'Water views', 'Skylit stair', 'Library nook', 'Two parking bays'],
+    amenities: ['Roof garden', 'Concierge service', 'Fitness room', 'Bike storage', 'Guest suite', 'Heat recovery ventilation', 'Smart entry', 'Secure parking'],
+  },
+  {
+    id: 'grove-court-villa',
+    title: 'Grove Court Villa',
+    city: 'Napa Valley',
+    state: 'California',
+    country: 'USA',
+    price: 3400000,
+    priceLabel: '$3.4 Million',
+    type: 'Villa',
+    status: 'For Sale',
+    beds: 5,
+    baths: 4,
+    sqft: 4120,
+    year: 2020,
+    featured: false,
+    agentId: 'daniel-morgan',
+    images: [
+      photo('1602343168117-bb8ffe3e2e9f'),
+      photo('1568605114967-8130f3a36994'),
+      photo('1564013799919-ab600027ffc6'),
+      photo('1600607687920-4e2a09cf159d'),
+      photo('1583608205776-bfd35f0d9f83'),
+    ],
+    description:
+      'A single-storey villa set within two acres of mature olive grove and vineyard. Loggias on both sides of the plan follow the sun through the day, and a stone-walled courtyard holds a long pool facing the western hills.',
+    features: ['Two-acre olive grove', 'Vineyard parcel', 'Loggia dining', 'Long pool', 'Guest suite', 'Wine room'],
+    amenities: ['Outdoor kitchen', 'Fireplace lounge', 'Olive press room', 'Greenhouse', 'Solar array', 'Well & irrigation', 'Gated entry', 'Detached garage'],
+  },
+];
+
+export const PROPERTY_TYPES = [...new Set(PROPERTIES.map((p) => p.type))].sort();
+export const LOCATIONS = [...new Set(PROPERTIES.map((p) => `${p.city}, ${p.state}`))].sort();
+
+export const getProperty = (id) => PROPERTIES.find((p) => p.id === id) || null;
+export const getAgent = (id) => AGENTS.find((a) => a.id === id) || AGENTS[0];
+
+export const locationLabel = (p) => `${p.city}, ${p.state}, ${p.country}`;
+
+export function similarProperties(property, limit = 3) {
+  return PROPERTIES.filter(
+    (p) => p.id !== property.id && (p.type === property.type || p.state === property.state)
+  )
+    .sort((a, b) => Math.abs(a.price - property.price) - Math.abs(b.price - property.price))
+    .slice(0, limit);
+}

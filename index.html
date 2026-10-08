@@ -1,19 +1,264 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
-
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سایت آموزشی</title>
-<link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#081627">
+<meta name="description" content="Horizon Properties — a premium real estate agency representing exceptional homes and considered investments across the United States.">
+<title>Horizon Properties — Exceptional Homes &amp; Investments</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/home.css">
+<link rel="stylesheet" href="css/properties.css">
 </head>
+<body data-page="home">
+<a class="skip-link" href="#main">Skip to main content</a>
+<div data-header-mount></div>
 
-<body>
+<main id="main">
 
-    <h1>به سایت آموزشی خوش آمدید 🌱</h1>
+  <!-- ================================================================ hero -->
+  <section class="hero">
+    <div class="hero__media">
+      <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2000&q=80"
+           alt="Modern luxury villa with glass walls and an infinity pool at blue hour"
+           fetchpriority="high" decoding="async" width="2000" height="1333">
+    </div>
+    <div class="hero__overlay"></div>
 
-    <p>این اولین صفحه سایت ماست.</p>
+    <div class="container hero__content">
+      <span class="eyebrow eyebrow--center">Prime residential · Est. 2007</span>
+      <h1>Discover Exceptional<br>Homes &amp; Investments</h1>
+      <p class="hero__sub">Premium properties in prime locations. Find your dream home or the perfect investment with confidence.</p>
+      <div class="hero__actions">
+        <a class="btn btn--gold" href="properties.html">Explore Properties <span class="arrow" data-icon="arrowRight" data-icon-size="16"></span></a>
+        <button class="btn btn--ghost" type="button" data-open-contact>Speak to an advisor</button>
+      </div>
+    </div>
 
+    <div class="hero__scroll" aria-hidden="true"><span></span><span>Scroll</span></div>
+  </section>
+
+  <!-- =============================================================== about -->
+  <section class="section" id="about">
+    <div class="container about__grid">
+      <div class="about__copy reveal">
+        <span class="eyebrow">About Us</span>
+        <h2 class="h2">Who We Are</h2>
+        <p class="lead">At Horizon Properties, we connect people with extraordinary homes and smart investments. Integrity, transparency, and client satisfaction are at the heart of everything we do.</p>
+        <a class="btn btn--outline" href="properties.html">Learn More <span class="arrow" data-icon="arrowRight" data-icon-size="16"></span></a>
+
+        <div class="about__stats">
+          <div class="about__stat"><strong>$2.4B</strong><span>Property sold</span></div>
+          <div class="about__stat"><strong>1,200+</strong><span>Homes placed</span></div>
+          <div class="about__stat"><strong>97%</strong><span>Client referrals</span></div>
+        </div>
+      </div>
+
+      <div class="about__media reveal" style="--reveal-delay:140ms">
+        <div class="about__media-grid">
+          <figure class="about__figure about__figure--main">
+            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1400&q=75"
+                 alt="Contemporary living room opening onto a terrace and pool"
+                 loading="lazy" decoding="async" width="1400" height="1050">
+          </figure>
+          <figure class="about__figure about__figure--side">
+            <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=900&q=75"
+                 alt="Detail of a calm, minimal interior with warm timber joinery"
+                 loading="lazy" decoding="async" width="900" height="1250">
+          </figure>
+        </div>
+
+        <div class="about__badge">
+          <strong>18</strong>
+          <span>years advising on prime property</span>
+        </div>
+
+        <a class="arrow-fab about__fab" href="properties.html" aria-label="Browse our property collection">
+          <span data-icon="arrowUpRight" data-icon-size="22"></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ featured -->
+  <section class="section section--mist" id="featured">
+    <div class="container">
+      <div class="carousel" data-carousel>
+        <div class="featured__head reveal">
+          <div class="section-head">
+            <span class="eyebrow">Featured</span>
+            <h2 class="h2">Featured Properties</h2>
+          </div>
+          <div class="carousel__controls">
+            <button class="carousel__btn" type="button" data-carousel-prev aria-label="Previous properties">
+              <span data-icon="arrowLeft" data-icon-size="19"></span>
+            </button>
+            <button class="carousel__btn" type="button" data-carousel-next aria-label="Next properties">
+              <span data-icon="arrowRight" data-icon-size="19"></span>
+            </button>
+          </div>
+        </div>
+
+        <div class="carousel__viewport no-scrollbar" tabindex="0" role="region"
+             aria-label="Featured properties carousel — use the arrow keys to browse">
+          <div class="carousel__track" data-featured-track></div>
+        </div>
+      </div>
+
+      <div style="margin-top:36px">
+        <a class="link-arrow" href="properties.html">View the full collection <span class="arrow" data-icon="arrowRight" data-icon-size="15"></span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ services -->
+  <section class="section" id="services">
+    <div class="container">
+      <div class="section-head reveal" style="margin-bottom:clamp(34px,4vw,54px)">
+        <span class="eyebrow">What we do</span>
+        <h2 class="h2">A Calm, Complete Service</h2>
+        <p class="lead">From first valuation to final signature, one team carries the detail — so buying or selling feels considered rather than rushed.</p>
+      </div>
+
+      <div class="services__grid">
+        <div class="services__media reveal">
+          <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1200&q=75"
+               alt="Architect-designed house with a reflecting pool at dusk"
+               loading="lazy" decoding="async" width="1200" height="1380">
+          <div class="services__media-caption">
+            <strong>Discreet by default</strong>
+            <span>Off-market introductions and private viewings for every client.</span>
+          </div>
+        </div>
+
+        <ul class="reveal" style="--reveal-delay:120ms">
+          <li class="service-row">
+            <span class="service-row__index">01</span>
+            <div class="service-row__body">
+              <h3 class="h3">Luxury Home Sales</h3>
+              <p>Bespoke marketing and qualified buyer introductions for architecturally significant homes.</p>
+            </div>
+            <span class="service-row__icon" data-icon="house" data-icon-size="18"></span>
+          </li>
+          <li class="service-row">
+            <span class="service-row__index">02</span>
+            <div class="service-row__body">
+              <h3 class="h3">Property Investment</h3>
+              <p>Yield analysis, off-market acquisition and portfolio structuring for private investors.</p>
+            </div>
+            <span class="service-row__icon" data-icon="chart" data-icon-size="18"></span>
+          </li>
+          <li class="service-row">
+            <span class="service-row__index">03</span>
+            <div class="service-row__body">
+              <h3 class="h3">Property Marketing</h3>
+              <p>Editorial photography, film and staging that present a home at its very best.</p>
+            </div>
+            <span class="service-row__icon" data-icon="camera" data-icon-size="18"></span>
+          </li>
+          <li class="service-row">
+            <span class="service-row__index">04</span>
+            <div class="service-row__body">
+              <h3 class="h3">Real Estate Advisory</h3>
+              <p>Independent guidance on timing, pricing and negotiation across prime markets.</p>
+            </div>
+            <span class="service-row__icon" data-icon="compass" data-icon-size="18"></span>
+          </li>
+          <li class="service-row">
+            <span class="service-row__index">05</span>
+            <div class="service-row__body">
+              <h3 class="h3">Property Valuation</h3>
+              <p>Accurate, defensible valuations for sale, lending, tax and estate purposes.</p>
+            </div>
+            <span class="service-row__icon" data-icon="scale" data-icon-size="18"></span>
+          </li>
+          <li class="service-row">
+            <span class="service-row__index">06</span>
+            <div class="service-row__body">
+              <h3 class="h3">Relocation Services</h3>
+              <p>End-to-end support for families and executives settling into a new city.</p>
+            </div>
+            <span class="service-row__icon" data-icon="truck" data-icon-size="18"></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================= why -->
+  <section class="section why" id="why">
+    <div class="container">
+      <div class="why__head reveal">
+        <span class="eyebrow">Why Horizon</span>
+        <h2 class="h2">Why Choose Horizon</h2>
+        <p class="lead">We represent fewer homes, deliberately. Every listing is personally vetted, every negotiation is handled by a director, and every client keeps one point of contact from first call to completion.</p>
+      </div>
+
+      <div class="why__grid">
+        <article class="why__card reveal">
+          <span data-icon="shield" data-icon-size="30"></span>
+          <h3 class="h3">Proven Track Record</h3>
+          <p>Eighteen years and $2.4 billion in prime residential sales across nine states.</p>
+        </article>
+        <article class="why__card reveal" style="--reveal-delay:90ms">
+          <span data-icon="users" data-icon-size="30"></span>
+          <h3 class="h3">Discreet Representation</h3>
+          <p>Off-market listings and private viewings protect your privacy at every stage.</p>
+        </article>
+        <article class="why__card reveal" style="--reveal-delay:180ms">
+          <span data-icon="chart" data-icon-size="30"></span>
+          <h3 class="h3">Data-Led Pricing</h3>
+          <p>Comparable analysis and live market data keep your pricing honest and defensible.</p>
+        </article>
+        <article class="why__card reveal" style="--reveal-delay:270ms">
+          <span data-icon="key" data-icon-size="30"></span>
+          <h3 class="h3">One Advisor, End to End</h3>
+          <p>A single specialist carries your file — no handovers, no repeating yourself.</p>
+        </article>
+      </div>
+
+      <div class="why__stats">
+        <div class="why__stat reveal"><strong>$2.4B</strong><span>Total sales volume</span></div>
+        <div class="why__stat reveal" style="--reveal-delay:80ms"><strong>1,200+</strong><span>Homes placed</span></div>
+        <div class="why__stat reveal" style="--reveal-delay:160ms"><strong>18</strong><span>Years in prime markets</span></div>
+        <div class="why__stat reveal" style="--reveal-delay:240ms"><strong>98%</strong><span>Client satisfaction</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================ team -->
+  <section class="section section--mist" id="team">
+    <div class="container">
+      <div class="section-head section-head--center reveal" style="margin-bottom:clamp(34px,4vw,52px)">
+        <span class="eyebrow eyebrow--center">Our people</span>
+        <h2 class="h2">The Horizon Team</h2>
+        <p class="lead">Advisors who live in the markets they represent, and who answer their own phones.</p>
+      </div>
+      <div class="team__grid" data-team-grid></div>
+    </div>
+  </section>
+
+  <!-- ================================================================= cta -->
+  <section class="section" id="get-in-touch">
+    <div class="container">
+      <div class="cta__panel reveal">
+        <div class="cta__icon"><span data-icon="key" data-icon-size="46"></span></div>
+        <div class="cta__copy">
+          <h2 class="h2">Ready to Find Your Perfect Property?</h2>
+          <p>Let our experts guide you to the right home or investment.</p>
+        </div>
+        <button class="btn" type="button" data-open-contact>Get in Touch <span class="arrow" data-icon="arrowRight" data-icon-size="16"></span></button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<div data-footer></div>
+<script type="module" src="js/home.js"></script>
 </body>
-
 </html>

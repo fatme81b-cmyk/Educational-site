@@ -1,0 +1,25 @@
+# Base44 sandbox/dev compose for this repository.
+#
+# The project is a plain static site (index.html, style.css, script.js): no
+# build step, no package manager, no backend and no external services. The repo
+# is bind-mounted straight into a stock nginx runtime image, so edits to the
+# source files are served immediately (browser refresh only - there is no
+# bundler to hot-reload).
+services:
+  web:
+    image: nginx:alpine
+    restart: on-failure
+    ports:
+      - "3000:80"
+    volumes:
+      - ./:/usr/share/nginx/html
+    # The clone's root directory is mode 0700, which nginx's unprivileged worker
+    # user cannot traverse (403 Forbidden). Relax the read/execute bits on the
+    # mounted source before starting nginx.
+    command: ["sh", "-c", "chmod -R a+rX /usr/share/nginx/html && exec nginx -g 'daemon off;'"]
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1/"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
