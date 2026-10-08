@@ -3,43 +3,74 @@
    ========================================================================== */
 
 /* ----------------------------------------------------------------- hero -- */
+/* Scroll-driven hero film.
+   The section is a tall runway (300vh) with a 100vh stage pinned inside it via
+   `position: sticky`, and js/hero-scrub.js maps scroll progress through the
+   runway onto the film's timeline. Nothing here autoplays: the stage is simply
+   what keeps the film on screen while the page scrolls past it. */
 .hero {
   position: relative;
-  min-height: clamp(620px, 92vh, 960px);
+  height: 300vh;
+  background: var(--navy-900);
+  color: #fff;
+}
+
+.hero__stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
   display: flex;
   align-items: flex-start;
   padding-top: calc(var(--header-h) + clamp(52px, 9vh, 118px));
   padding-bottom: clamp(70px, 11vh, 130px);
-  background: var(--navy-900);
-  color: #fff;
-  overflow: hidden;
-  isolation: isolate;
+  overflow: hidden;   /* clips the film and the transition arc */
+  isolation: isolate; /* keeps the negative-z media layers above the background */
 }
 
-.hero__media { position: absolute; inset: 0; z-index: -2; }
+/* Reduced motion: no pin and no scrub — one static frame, normal scrolling. */
+.hero--static { height: auto; }
+.hero--static .hero__stage {
+  position: relative;
+  height: auto;
+  min-height: clamp(620px, 92vh, 960px);
+}
 
-.hero__media img {
+.hero__media { position: absolute; inset: 0; z-index: -2; background: var(--navy-900); }
+
+/* Poster frame of the film — and the video's own `poster` — so the hero never
+   reveals a blank rectangle. It is also what remains if the film fails. */
+.hero__fallback,
+.hero__video {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: scale(1.04);
-  animation: heroZoom 2.6s var(--ease) forwards;
 }
 
-@keyframes heroZoom { to { transform: scale(1); } }
+.hero__video {
+  opacity: 0;
+  transition: opacity .7s var(--ease);
+}
+.hero__video.is-ready { opacity: 1; }
+
+/* Only useful when it can actually be scrubbed. */
+.hero--no-video .hero__video,
+.hero--static .hero__video { display: none; }
 
 .hero__overlay {
   position: absolute;
   inset: 0;
   z-index: -1;
   background:
-    linear-gradient(180deg, rgba(6, 17, 30, .74) 0%, rgba(6, 17, 30, .24) 42%, rgba(6, 17, 30, .60) 100%),
-    radial-gradient(88% 58% at 50% 36%, rgba(6, 17, 30, .46), rgba(6, 17, 30, 0) 74%);
+    linear-gradient(180deg, rgba(6, 17, 30, .66) 0%, rgba(6, 17, 30, .18) 44%, rgba(6, 17, 30, .55) 100%),
+    radial-gradient(90% 58% at 50% 38%, rgba(6, 17, 30, .40), rgba(6, 17, 30, 0) 74%);
+  /* Lifted by hero-scrub.js as the copy leaves, so the film stays dominant. */
 }
 
-/* soft transition into the white content below */
-.hero::after {
-  content: '';
+/* Soft transition into the white content below — faded in over the last stretch
+   of the scrub, exactly as the stage releases. */
+.hero__arc {
   position: absolute;
   left: -5%;
   right: -5%;
@@ -48,7 +79,9 @@
   background: var(--white);
   border-radius: 50% 50% 0 0 / 100% 100% 0 0;
   z-index: 1;
+  opacity: 0;
 }
+.hero--static .hero__arc { opacity: 1; }
 
 .hero__content {
   position: relative;
@@ -56,6 +89,8 @@
   max-width: 880px;
   margin-inline: auto;
   text-align: center;
+  /* Driven per frame by hero-scrub.js — keep it on the compositor. */
+  will-change: opacity, transform;
 }
 
 .hero__content > * {
@@ -99,6 +134,54 @@
   margin-top: 36px;
 }
 
+/* Minimal preparation state — a hairline, never a large spinner. */
+.hero__loading {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(46px, 7vh, 78px);
+  z-index: 2;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-display);
+  font-size: .64rem;
+  font-weight: 700;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, .62);
+  transition: opacity .5s var(--ease), visibility .5s;
+}
+.hero__loading-bar {
+  display: block;
+  width: 96px;
+  height: 1px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, .22);
+}
+.hero__loading-bar i {
+  display: block;
+  height: 100%;
+  background: var(--champagne-light);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform .35s linear;
+}
+/* Used only when the response carries no content-length to measure against. */
+.hero__loading-bar.is-indeterminate i {
+  width: 40%;
+  transform: none;
+  animation: heroLoadSweep 1.5s var(--ease) infinite;
+}
+@keyframes heroLoadSweep {
+  from { transform: translateX(-110%); }
+  to { transform: translateX(360%); }
+}
+.hero--ready .hero__loading,
+.hero--no-video .hero__loading,
+.hero--static .hero__loading { opacity: 0; visibility: hidden; }
+
 .hero__scroll {
   position: absolute;
   left: 50%;
@@ -115,7 +198,10 @@
   letter-spacing: .28em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, .7);
+  /* Revealed once the film is ready, faded out by the first nudge of scroll. */
+  opacity: 0;
 }
+.hero--static .hero__scroll { opacity: 1; }
 .hero__scroll span:first-child { display: block; width: 1px; height: 44px; background: linear-gradient(rgba(255,255,255,.1), rgba(255,255,255,.75)); animation: scrollHint 2.4s var(--ease) infinite; }
 @keyframes scrollHint {
   0% { transform: scaleY(.2); transform-origin: top; opacity: .2; }
@@ -526,7 +612,7 @@
 }
 
 @media (max-width: 640px) {
-  .hero { min-height: 88vh; }
+  .hero { height: 260vh; }
   .hero__scroll { display: none; }
   .about__media-grid { grid-template-columns: 1fr; }
   .about__figure--side { aspect-ratio: 16 / 10; }

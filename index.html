@@ -21,25 +21,49 @@
 <main id="main">
 
   <!-- ================================================================ hero -->
-  <section class="hero">
-    <div class="hero__media">
-      <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2000&q=80"
-           alt="Modern luxury villa with glass walls and an infinity pool at blue hour"
-           fetchpriority="high" decoding="async" width="2000" height="1333">
-    </div>
-    <div class="hero__overlay"></div>
-
-    <div class="container hero__content">
-      <span class="eyebrow eyebrow--center">Prime residential · Est. 2007</span>
-      <h1>Discover Exceptional<br>Homes &amp; Investments</h1>
-      <p class="hero__sub">Premium properties in prime locations. Find your dream home or the perfect investment with confidence.</p>
-      <div class="hero__actions">
-        <a class="btn btn--gold" href="properties.html">Explore Properties <span class="arrow" data-icon="arrowRight" data-icon-size="16"></span></a>
-        <button class="btn btn--ghost" type="button" data-open-contact>Speak to an advisor</button>
+  <!-- Scroll-driven hero film: the section is a 300vh runway, the stage inside
+       it is pinned at 100vh, and js/hero-scrub.js maps scroll progress onto the
+       film's timeline. The video is never played — only scrubbed. -->
+  <section class="hero" data-hero-scrub>
+    <div class="hero__stage">
+      <div class="hero__media">
+        <!-- Poster frame of the film (also the video's own `poster`). If the film
+             cannot be decoded, hero-scrub.js swaps in the previous hero image
+             via data-hero-image so the hero is never blank. -->
+        <img class="hero__fallback" data-hero-fallback
+             src="assets/hero-poster.jpg"
+             data-hero-image="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=2000&q=80"
+             alt="Modern luxury villa with glass walls and an infinity pool at blue hour"
+             fetchpriority="high" decoding="async" width="1280" height="704">
+        <!-- Deliberately no <source> children: hero-scrub.js picks the encode
+             (phone or desktop, H.264 or WebM) so only one file is ever fetched.
+             preload="none" keeps a reduced-motion visitor from downloading a film
+             they will never scrub; the poster frame above carries the hero. -->
+        <video class="hero__video" data-hero-video
+               poster="assets/hero-poster.jpg"
+               preload="none" muted playsinline
+               aria-hidden="true" tabindex="-1" disablepictureinpicture></video>
       </div>
-    </div>
+      <div class="hero__overlay" data-hero-overlay></div>
 
-    <div class="hero__scroll" aria-hidden="true"><span></span><span>Scroll</span></div>
+      <div class="container hero__content" data-hero-content>
+        <span class="eyebrow eyebrow--center">Prime residential · Est. 2007</span>
+        <h1>Discover Exceptional<br>Homes &amp; Investments</h1>
+        <p class="hero__sub">Premium properties in prime locations. Find your dream home or the perfect investment with confidence.</p>
+        <div class="hero__actions">
+          <a class="btn btn--gold" href="properties.html">Explore Properties <span class="arrow" data-icon="arrowRight" data-icon-size="16"></span></a>
+          <button class="btn btn--ghost" type="button" data-open-contact>Speak to an advisor</button>
+        </div>
+      </div>
+
+      <div class="hero__loading" data-hero-loading aria-hidden="true">
+        <span>Preparing the film</span>
+        <span class="hero__loading-bar"><i data-hero-loadbar></i></span>
+      </div>
+
+      <div class="hero__scroll" data-hero-hint aria-hidden="true"><span></span><span>Scroll</span></div>
+      <div class="hero__arc" data-hero-arc aria-hidden="true"></div>
+    </div>
   </section>
 
   <!-- =============================================================== about -->

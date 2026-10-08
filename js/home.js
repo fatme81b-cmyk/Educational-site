@@ -1,6 +1,7 @@
 /* Homepage controller — featured carousel and team grid. */
 
 import { observeReveals, syncFavoriteButtons } from './site.js';
+import { initHeroScrub } from './hero-scrub.js';
 import { PROPERTIES, AGENTS } from './data.js';
 import { propertyCardHTML } from './cards.js';
 import { initCarousel } from './carousel.js';
@@ -44,5 +45,6 @@ document.querySelectorAll('[data-tel]').forEach((link) => {
   link.href = `tel:${link.dataset.tel.replace(/[^\d+]/g, '')}`;
 });
 
+initHeroScrub();
 syncFavoriteButtons();
 observeReveals();

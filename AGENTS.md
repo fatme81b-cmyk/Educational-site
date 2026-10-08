@@ -27,6 +27,45 @@ rebuild.
   the lightbox 1600px, via `atWidth()` in `js/data.js`.
 - No secrets or environment variables are required. Nothing here needs credentials.
 
+## Hero film (scroll-scrubbed)
+
+The homepage hero is a scroll-driven film, not a background video: it is never
+played, only scrubbed. `index.html` gives the hero a **300vh runway** with a
+**100vh stage pinned inside it** (`position: sticky`, css/home.css), and
+`js/hero-scrub.js` maps scroll progress onto `video.currentTime` — 0% scroll is
+frame 0, 100% is the final frame, the whole timeline is traversed exactly once.
+Scrolling down runs it forward, up runs it back, stopping freezes the frame.
+
+- Assets: `assets/hero-scrub.mp4` (desktop 1280x704), `hero-scrub-mobile.mp4`
+  (720px, picked when the viewport is ≤767px), `hero-scrub.webm` (engines without
+  H.264) and `hero-poster.jpg` (first frame: the poster, the under-layer, and the
+  no-JS/static visual). The encode is chosen in JS and fetched once — do **not**
+  reintroduce `<source media>`: Chrome probed the phone file on desktop and logged
+  a failed source.
+- Seeking is the whole game, so the encodes matter: a keyframe every 4 frames, no
+  audio track, `+faststart`. The original export carried a single keyframe and
+  stuttered on every seek. To rebuild (from a fresh source in /tmp):
+
+  ```bash
+  docker run --rm -v "$PWD/assets:/out" -v "/tmp:/src" mwader/static-ffmpeg:7.1 \
+    -i /src/source.mp4 -an -c:v libx264 -profile:v high -pix_fmt yuv420p \
+    -g 4 -keyint_min 4 -sc_threshold 0 -crf 22 -preset slow -tune film \
+    -movflags +faststart -vf scale=1280:-2 /out/hero-scrub.mp4
+  ```
+
+- The film is fetched into a blob before it is scrubbed. `preload` alone is not
+  enough: a paused media element keeps only a window buffered (Chrome discarded
+  everything past ~3s of this film), which puts the network back inside the seek
+  path. Keep the blob — and keep it in mind for any future scrubbed media here.
+- Until that blob decodes, the hero shows the poster frame plus the hairline
+  loading state; the film only fades in once it can answer a seek, and the scroll
+  hint appears with it.
+- `prefers-reduced-motion: reduce` short-circuits everything: no pin, no scrub, no
+  film download (the `<video>` never gets a src and is `display: none`) — the hero
+  is the static first frame and the page scrolls normally.
+- If the film cannot be fetched or decoded, `hero--no-video` swaps the element's
+  `data-hero-image` value (the previous Unsplash hero photo) into the poster layer.
+
 ## Verifying changes
 
 - `curl -s -o /dev/null -w '%{http_code}' http://localhost:3000/` — sanity check.
